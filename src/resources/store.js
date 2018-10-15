@@ -1,17 +1,20 @@
-import { createStore, applyMiddleware, compose } from 'redux';
+import { AsyncStorage } from 'react-native';
+import { applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
 import thunk from 'redux-thunk';
+import Reactotron from '../../ReactotronConfig';
 import rootReducer from './reducer';
 
-const configureStore = (initialState) => {
-  const store = createStore(
-    rootReducer,
-    initialState,
-    compose(
-      applyMiddleware(thunk),
-    ),
-  );
-
-  return store;
+const persistConfig = {
+  key: 'root',
+  storage: AsyncStorage,
 };
 
-export default configureStore;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export const store = Reactotron.createStore(
+  persistedReducer,
+  applyMiddleware(thunk),
+);
+
+export const persistor = persistStore(store);

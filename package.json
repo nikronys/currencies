@@ -13,6 +13,7 @@
     "react-native-router-flux": "^4.0.5",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
+    "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "remote-redux-devtools-sp": "^0.5.13"
   },
@@ -27,6 +28,8 @@
     "jest": "23.6.0",
     "metro-react-native-babel-preset": "0.48.1",
     "react-test-renderer": "16.5.0",
+    "reactotron-react-native": "^2.1.0",
+    "reactotron-redux": "^2.1.0",
     "remote-redux-devtools": "^0.5.13"
   },
   "jest": {
