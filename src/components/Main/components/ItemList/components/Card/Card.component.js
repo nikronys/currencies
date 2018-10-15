@@ -18,4 +18,4 @@ Card.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-export default Card;
+export default (Card);

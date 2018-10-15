@@ -1,18 +1,23 @@
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import {
+  View,
+  Text,
+  FlatList,
+} from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Card from './components/Card';
+import * as cardsActions from '../../resources/currencyList/currencyList.actions';
+import ItemList from './components/ItemList';
 import styles from './Main.styled';
 
+
 const Main = (props) => {
-  const { currencies } = props;
+  const { cards, editCard } = props;
   const {
     addCurrencyTextContainer, addCurrencyText, container,
-    element, main, content,
   } = styles;
 
-  if (currencies.length === 0) {
+  if (cards.length === 0) {
     return (
       <View style={addCurrencyTextContainer}>
         <Text style={addCurrencyText}>
@@ -26,28 +31,8 @@ const Main = (props) => {
     <View style={container}>
       <FlatList
         showsVerticalScrollIndicator={false}
-        data={currencies}
-        renderItem={({ item }) => (
-          <View style={element}>
-            <View style={main}>
-              <View style={content}>
-                <Card name="Name">
-                  {item.name}
-                </Card>
-                <Card name="Symbol">
-                  {item.symbol}
-                </Card>
-                <Card name="Rank">
-                  {item.rank}
-                </Card>
-                <Card name="Price">
-                  {`${item.quotes.USD.price.toFixed(2)}$`}
-                </Card>
-              </View>
-            </View>
-          </View>
-        )
-        }
+        data={cards}
+        renderItem={ItemList(editCard)}
         keyExtractor={(item, index) => index.toString()}
       />
     </View>
@@ -55,11 +40,16 @@ const Main = (props) => {
 };
 
 const mapStateToProps = state => ({
-  currencies: state.currencies,
+  cards: state.cards.cards,
 });
 
+const mapDispatchToProps = {
+  editCard: cardsActions.editCard,
+};
+
 Main.propTypes = {
-  currencies: PropTypes.arrayOf(PropTypes.shape({
+  editCard: PropTypes.func.isRequired,
+  cards: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     symbol: PropTypes.string.isRequired,
     rank: PropTypes.number.isRequired,
@@ -71,4 +61,4 @@ Main.propTypes = {
   })).isRequired,
 };
 
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

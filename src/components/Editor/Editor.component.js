@@ -8,7 +8,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as currenciesActions from '../../resources/currencyList/currencyList.actions';
+import * as cardsActions from '../../resources/currencyList/currencyList.actions';
 import Button from './components/Button';
 import styles from './Editor.styled';
 
@@ -27,9 +27,9 @@ class Editor extends Component {
   }
 
   onSaveClick = () => {
-    const { saveCurrency } = this.props;
+    const { saveCard } = this.props;
     const { data, currentCurrency } = this.state;
-    saveCurrency(Object.values(data).find(element => element.name === currentCurrency));
+    saveCard(Object.values(data).find(element => element.name === currentCurrency));
     Actions.home();
   }
 
@@ -76,11 +76,11 @@ class Editor extends Component {
 }
 
 const mapDispatchToProps = {
-  saveCurrency: currenciesActions.saveCurrency,
+  saveCard: cardsActions.saveCard,
 };
 
 Editor.propTypes = {
-  saveCurrency: PropTypes.func.isRequired,
+  saveCard: PropTypes.func.isRequired,
 };
 
 export default connect(null, mapDispatchToProps)(Editor);

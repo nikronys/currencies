@@ -1,6 +1,12 @@
-export const SAVE_CURRENCY = 'SAVE_CURRENCY';
+export const SAVE_CARD = 'SAVE_CARD';
+export const EDIT_CARD = 'EDIT_CARD';
 
-export const saveCurrency = currency => ({
-  type: SAVE_CURRENCY,
+export const saveCard = currency => ({
+  type: SAVE_CARD,
   payload: currency,
+});
+
+export const editCard = id => ({
+  type: EDIT_CARD,
+  payload: id,
 });

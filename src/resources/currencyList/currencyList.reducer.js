@@ -1,17 +1,25 @@
-import { SAVE_CURRENCY } from './currencyList.actions';
+import { SAVE_CARD, EDIT_CARD } from './currencyList.actions';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = {
+  cards: [],
+  cardIdUnderEdition: null,
+};
 
-const currencies = (state = INITIAL_STATE, action) => {
+const cards = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SAVE_CURRENCY:
-      return [
+    case SAVE_CARD:
+      return {
         ...state,
-        action.payload,
-      ];
+        cards: [...state.cards, action.payload],
+      };
+    case EDIT_CARD:
+      return {
+        ...state,
+        cardIdUnderEdition: action.payload,
+      };
     default:
       return state;
   }
 };
 
-export default currencies;
+export default cards;

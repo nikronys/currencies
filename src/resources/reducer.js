@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux';
-import currencies from './currencyList/currencyList.reducer';
+import cards from './currencyList/currencyList.reducer';
 
 const reducers = {
-  currencies,
+  cards,
 };
 
 export default combineReducers(reducers);
