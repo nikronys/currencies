@@ -10,12 +10,14 @@
     "prop-types": "^15.6.2",
     "react": "16.5.0",
     "react-native": "0.57.2",
+    "react-native-autogrow-textinput": "^5.1.1",
     "react-native-router-flux": "^4.0.5",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
-    "remote-redux-devtools-sp": "^0.5.13"
+    "remote-redux-devtools-sp": "^0.5.13",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",

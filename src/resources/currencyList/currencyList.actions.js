@@ -1,9 +1,9 @@
-export const SAVE_CARD = 'SAVE_CARD';
+export const ADD_CARD = 'ADD_CARD';
 export const EDIT_CARD = 'EDIT_CARD';
 
-export const saveCard = currency => ({
-  type: SAVE_CARD,
-  payload: currency,
+export const saveCard = card => ({
+  type: ADD_CARD,
+  payload: card,
 });
 
 export const editCard = id => ({

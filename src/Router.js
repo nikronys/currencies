@@ -22,9 +22,10 @@ const RouterComponent = () => {
           initial
         />
         <Scene
+          backTitle="Back"
           key="editor"
           component={Editor}
-          title="Choose currency"
+          title="Editor"
         />
       </Stack>
     </Router>

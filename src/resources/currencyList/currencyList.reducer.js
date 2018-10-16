@@ -1,22 +1,21 @@
-import { SAVE_CARD, EDIT_CARD } from './currencyList.actions';
+import { ADD_CARD, EDIT_CARD } from './currencyList.actions';
 
-const INITIAL_STATE = {
-  cards: [],
-  cardIdUnderEdition: null,
-};
+const INITIAL_STATE = [];
 
 const cards = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case SAVE_CARD:
-      return {
+    case ADD_CARD:
+      return [
         ...state,
-        cards: [...state.cards, action.payload],
-      };
+        action.payload,
+      ];
     case EDIT_CARD:
-      return {
-        ...state,
-        cardIdUnderEdition: action.payload,
-      };
+      return state.map((element) => {
+        if (element._id === action.payload._id) {
+          return action.payload;
+        }
+        return element;
+      });
     default:
       return state;
   }

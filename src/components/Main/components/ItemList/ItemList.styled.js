@@ -13,10 +13,19 @@ const styles = StyleSheet.create({
   },
   content: {
     flexDirection: 'column',
+    padding: 5,
   },
   main: {
     flexDirection: 'column',
     flex: 1,
+  },
+  currencyStyle: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    flex: 1,
+  },
+  descriptionStyle: {
+    marginBottom: 8,
   },
 });
 

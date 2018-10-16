@@ -3,10 +3,14 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import PropTypes from 'prop-types';
 import styles from './Button.styled';
 
-const Button = ({ onPress, children }) => {
+const Button = ({ onPress, children, description }) => {
   return (
     <View style={styles.buttonContainer}>
-      <TouchableOpacity onPress={onPress} style={styles.buttonStyle}>
+      <TouchableOpacity
+        disabled={description}
+        onPress={onPress}
+        style={description ? styles.disabledButton : styles.buttonStyle}
+      >
         <Text style={styles.textStyle}>{children}</Text>
       </TouchableOpacity>
     </View>
@@ -16,6 +20,7 @@ const Button = ({ onPress, children }) => {
 Button.propTypes = {
   onPress: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  description: PropTypes.bool.isRequired,
 };
 
 export default Button;

@@ -6,13 +6,12 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import * as cardsActions from '../../resources/currencyList/currencyList.actions';
 import ItemList from './components/ItemList';
 import styles from './Main.styled';
 
 
 const Main = (props) => {
-  const { cards, editCard } = props;
+  const { cards } = props;
   const {
     addCurrencyTextContainer, addCurrencyText, container,
   } = styles;
@@ -32,7 +31,7 @@ const Main = (props) => {
       <FlatList
         showsVerticalScrollIndicator={false}
         data={cards}
-        renderItem={ItemList(editCard)}
+        renderItem={ItemList}
         keyExtractor={(item, index) => index.toString()}
       />
     </View>
@@ -40,15 +39,10 @@ const Main = (props) => {
 };
 
 const mapStateToProps = state => ({
-  cards: state.cards.cards,
+  cards: state.cards,
 });
 
-const mapDispatchToProps = {
-  editCard: cardsActions.editCard,
-};
-
 Main.propTypes = {
-  editCard: PropTypes.func.isRequired,
   cards: PropTypes.arrayOf(PropTypes.shape({
     name: PropTypes.string.isRequired,
     symbol: PropTypes.string.isRequired,
@@ -61,4 +55,4 @@ Main.propTypes = {
   })).isRequired,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);
