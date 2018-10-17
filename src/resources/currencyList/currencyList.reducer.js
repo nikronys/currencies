@@ -11,7 +11,7 @@ const cards = (state = INITIAL_STATE, action) => {
       ];
     case EDIT_CARD:
       return state.map((element) => {
-        if (element._id === action.payload._id) {
+        if (element.currentCard._id === action.payload.currentCard._id) {
           return action.payload;
         }
         return element;

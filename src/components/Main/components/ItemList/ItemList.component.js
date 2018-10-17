@@ -12,27 +12,38 @@ const onCardClick = cardUnderEdition => () => {
   Actions.editor({ cardUnderEdition });
 };
 
-function toDateTime(secs) {
-  const t = new Date(1970, 0, 1); // Epoch
-  t.setSeconds(secs);
+const toDateTime = (secs) => {
+  const t = new Date(1970, 0, 1);
+  t.setSeconds(secs + 10800);
   return t.toString();
-}
+};
 
-const ItemList = ({ item }) => {
+const ItemList = (props) => {
   const {
-    element, main, content, currencyStyle, descriptionStyle,
+    element, main, content, currencyStyle,
+    descriptionStyle, cardFooterName, cardFooterPrice,
+    cardFooterDate,
   } = styles;
+  const {
+    item,
+    item: {
+      currentCard: {
+        description, name, quotes,
+        last_updated: lastUpdated,
+      },
+    },
+  } = props;
 
   return (
     <TouchableOpacity onPress={onCardClick(item)}>
       <View style={element}>
         <View style={main}>
           <View style={content}>
-            <Text style={descriptionStyle}>{item.description}</Text>
+            <Text style={descriptionStyle}>{description}</Text>
             <View style={currencyStyle}>
-              <Text>{item.name}</Text>
-              <Text>{`${item.quotes.USD.price.toFixed(2)}$`}</Text>
-              <Text>{toDateTime(item.last_updated).substring(3, 21).replace(' 2018', ',')}</Text>
+              <Text style={cardFooterDate}>{toDateTime(lastUpdated).substring(3, 21).replace(' 2018', ',')}</Text>
+              <Text style={cardFooterName}>{name}</Text>
+              <Text style={cardFooterPrice}>{`${quotes.USD.price.toFixed(3)}$`}</Text>
             </View>
           </View>
         </View>

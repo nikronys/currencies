@@ -30,10 +30,10 @@ class Editor extends Component {
         data: data.data,
         description: cardUnderEdition === null
           ? ''
-          : cardUnderEdition.description,
+          : cardUnderEdition.currentCard.description,
         currentCurrency: cardUnderEdition === null
           ? Object.values(data.data)[0].name
-          : cardUnderEdition.name,
+          : cardUnderEdition.currentCard.name,
       }));
   }
 
@@ -43,17 +43,23 @@ class Editor extends Component {
 
     if (cardUnderEdition === null) {
       const cardWithId = {
-        ...Object.values(data).find(element => element.name === currentCurrency),
-        _id: uuid(),
-        description,
+        currentCard: {
+          description,
+          _id: uuid(),
+          ...Object.values(data).find(element => element.name === currentCurrency),
+        },
+        currenciesSnapshot: Object.values(data),
       };
       saveCard(cardWithId);
       Actions.home();
     } else {
       const changedCard = {
         ...cardUnderEdition,
-        ...Object.values(data).find(element => element.name === currentCurrency),
-        description,
+        currentCard: {
+          ...cardUnderEdition.currenciesSnapshot.find(element => element.name === currentCurrency),
+          description,
+          _id: cardUnderEdition.currentCard._id,
+        },
       };
       editCard(changedCard);
       Actions.home();
@@ -76,6 +82,7 @@ class Editor extends Component {
       <ScrollView style={container}>
         <Text style={descriptionTitle}>Enter description:</Text>
         <AutoGrowingTextInput
+          autoCorrect={false}
           value={description}
           style={descriptionStyle}
           onChangeText={value => this.setState({ description: value })}
@@ -99,7 +106,7 @@ class Editor extends Component {
           }
         </Picker>
         {
-          cardUnderEdition === null || cardUnderEdition.name !== currentCurrency
+          cardUnderEdition === null
             ? (
               <Text style={currencyStyle}>
                 {
@@ -111,18 +118,18 @@ class Editor extends Component {
             : (
               <Text style={currencyStyle}>
                 {
-                  `The price was ${cardUnderEdition.quotes.USD.price.toFixed(2)}$.`
+                  `The price was ${cardUnderEdition.currenciesSnapshot.find(element => element.name === currentCurrency).quotes.USD.price.toFixed(3)}$.`
                 }
                 {'\n'}
                 {
                   `Current price is ${Object.values(data).find(element => element.name === currentCurrency)
-                    .quotes.USD.price.toFixed(2)}$`
+                    .quotes.USD.price.toFixed(3)}$`
                 }
               </Text>
             )
           }
         <View style={buttonContainer}>
-          <Button description={description === ''} onPress={this.onSaveClick}>Save</Button>
+          <Button isDisabled={!description} onPress={this.onSaveClick}>Save</Button>
         </View>
       </ScrollView>
     );
@@ -138,12 +145,24 @@ Editor.propTypes = {
   editCard: PropTypes.func.isRequired,
   saveCard: PropTypes.func.isRequired,
   cardUnderEdition: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    symbol: PropTypes.string.isRequired,
-    rank: PropTypes.number.isRequired,
-    quotes: PropTypes.shape({
-      USD: PropTypes.shape({
-        price: PropTypes.number.isRequired,
+    currenciesShapshot: PropTypes.arrayOf(PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      symbol: PropTypes.string.isRequired,
+      rank: PropTypes.number.isRequired,
+      quotes: PropTypes.shape({
+        USD: PropTypes.shape({
+          price: PropTypes.number.isRequired,
+        }),
+      }),
+    })),
+    currentCard: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      symbol: PropTypes.string.isRequired,
+      rank: PropTypes.number.isRequired,
+      quotes: PropTypes.shape({
+        USD: PropTypes.shape({
+          price: PropTypes.number.isRequired,
+        }),
       }),
     }),
   }),

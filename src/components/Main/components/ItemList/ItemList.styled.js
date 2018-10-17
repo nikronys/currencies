@@ -3,13 +3,16 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   element: {
     flexDirection: 'row',
-    borderWidth: 1,
-    margin: 10,
     padding: 10,
-    borderRadius: 10,
-    borderColor: '#fff',
+    backgroundColor: '#fff',
     flex: 1,
-    backgroundColor: '#e5e5e5',
+    borderRadius: 10,
+    marginTop: 10,
+    marginLeft: 15,
+    marginRight: 15,
+    shadowColor: 'black',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 0.2,
   },
   content: {
     flexDirection: 'column',
@@ -25,7 +28,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   descriptionStyle: {
-    marginBottom: 8,
+    marginBottom: 14,
+  },
+  cardFooterName: {
+    flex: 1,
+    textAlign: 'center',
+  },
+  cardFooterPrice: {
+    flex: 1,
+    textAlign: 'right',
+  },
+  cardFooterDate: {
+    flex: 1,
   },
 });
 
