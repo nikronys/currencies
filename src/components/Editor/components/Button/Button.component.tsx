@@ -1,9 +1,14 @@
-import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import PropTypes from 'prop-types';
+import React, { ReactChild } from 'react';
+import { Text, TouchableOpacity, View, GestureResponderEvent } from 'react-native';
 import styles from './Button.styled';
 
-const Button = ({ onPress, children, isDisabled }) => {
+type Props = {
+  onPress: (event: GestureResponderEvent) => void,
+  isDisabled: boolean,
+  children: ReactChild,
+ }
+
+const Button: React.SFC<Props> = ({ onPress, children, isDisabled }) => {
   return (
     <View style={styles.buttonContainer}>
       <TouchableOpacity
@@ -15,12 +20,6 @@ const Button = ({ onPress, children, isDisabled }) => {
       </TouchableOpacity>
     </View>
   );
-};
-
-Button.propTypes = {
-  onPress: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
-  isDisabled: PropTypes.bool.isRequired,
 };
 
 export default Button;

@@ -5,20 +5,36 @@ import {
   Text,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import PropTypes from 'prop-types';
-import styles from './ItemList.styled';
+import styles from './TodoItem.styled';
 
-const onCardClick = cardUnderEdition => () => {
+export type TodoCard = {
+  currentCard: {
+    description: string,
+    name: string,
+    quotes: {
+      USD: {
+        price: number,
+      },
+    },
+    last_updated: number
+  }
+};
+
+type Props = {
+  item: TodoCard;
+}
+
+const onCardClick = (cardUnderEdition: object) => () => {
   Actions.editor({ cardUnderEdition });
 };
 
-const toDateTime = (secs) => {
+const toDateTime = (secs: number) => {
   const t = new Date(1970, 0, 1);
   t.setSeconds(secs + 10800);
   return t.toString();
 };
 
-const ItemList = (props) => {
+const TodoItem = (props: Props): React.ReactElement<React.ReactChild> => {
   const {
     element, main, content, currencyStyle,
     descriptionStyle, cardFooterName, cardFooterPrice,
@@ -52,17 +68,4 @@ const ItemList = (props) => {
   );
 };
 
-ItemList.propTypes = {
-  item: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    symbol: PropTypes.string.isRequired,
-    rank: PropTypes.number.isRequired,
-    quotes: PropTypes.shape({
-      USD: PropTypes.shape({
-        price: PropTypes.number.isRequired,
-      }),
-    }),
-  }).isRequired,
-};
-
-export default ItemList;
+export default TodoItem;

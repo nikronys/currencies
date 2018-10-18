@@ -1,8 +1,8 @@
 import { ADD_CARD, EDIT_CARD } from './currencyList.actions';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE: Array<{ currentCard: { _id: string} }> = [];
 
-const cards = (state = INITIAL_STATE, action) => {
+const cards = (state = INITIAL_STATE, action: { type : string, payload: any }) => {
   switch (action.type) {
     case ADD_CARD:
       return [
